@@ -129,6 +129,41 @@ class BlurHash {
     return BlurHash._(hash, components);
   }
 
+  factory BlurHash.encodeData(
+    Uint8List data,
+    int height,
+    int width, {
+    int numCompX = 4,
+    int numCompY = 3,
+  }) {
+    if (numCompX < 1 || numCompX > 9 || numCompY < 1 || numCompX > 9) {
+      throw BlurHashEncodeException(
+        'BlurHash components must be between 1 and 9.',
+      );
+    }
+
+    final components = List.generate(
+      numCompY,
+      (i) => List<ColorTriplet>.filled(numCompX, ColorTriplet(0, 0, 0)),
+    );
+
+    for (var y = 0; y < numCompY; ++y) {
+      for (var x = 0; x < numCompX; ++x) {
+        final normalisation = (x == 0 && y == 0) ? 1.0 : 2.0;
+        final basisFunc = (int i, int j) {
+          return normalisation *
+              cos((pi * x * i) / width) *
+              cos((pi * y * j) / height);
+        };
+        components[y][x] =
+            _multiplyBasisFunction(data, width, height, basisFunc);
+      }
+    }
+
+    final hash = _encodeComponents(components);
+    return BlurHash._(hash, components);
+  }
+
   /// Construct a [BlurHash] with a single color.
   ///
   /// The RGB values must be in range [0, 255].
