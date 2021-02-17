@@ -31,7 +31,7 @@ void main() {
     test('encode test image "$i" and check equality with blurhash', () {
       final fileData = File('test/images/test$i.png').readAsBytesSync();
       final image = decodeImage(fileData.toList());
-      final blurHash = BlurHash.encode(image!, numCompX: 4, numCompY: 3);
+      final blurHash = BlurHash.encode(image, numCompX: 4, numCompY: 3);
 
       expect(blurHash.hash, hashes[i]);
     });

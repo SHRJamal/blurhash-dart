@@ -1,21 +1,21 @@
 class BlurHashDecodeException implements Exception {
   BlurHashDecodeException([
-    String? message,
+    String message,
   ]) : message = message ?? '';
 
   final String message;
 
   @override
-  String toString() => 'Exception: $message';
+  String toString() => 'BlurHashDecodeException: $message';
 }
 
 class BlurHashEncodeException implements Exception {
   BlurHashEncodeException([
-    String? message,
+    String message,
   ]) : message = message ?? '';
 
   final String message;
 
   @override
-  String toString() => 'Exception: $message';
+  String toString() => 'BlurHashDecodeException: $message';
 }

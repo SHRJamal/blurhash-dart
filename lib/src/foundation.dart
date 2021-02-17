@@ -86,5 +86,5 @@ int linearTosRgb(double value) {
 }
 
 double signPow(double value, double exp) {
-  return pow(value.abs(), exp) * value.sign;
+  return pow(value.abs(), exp) * value.sign as double;
 }
